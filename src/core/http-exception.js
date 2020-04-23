@@ -3,35 +3,35 @@
  */
 
 class HttpException extends Error {
-  constructor(msg = '服务器异常', errCode = 10000, code = 400) {
+  constructor(message = '服务器异常', errCode = 10000, code = 400) {
     super()
-    this.msg = msg
+    this.message = message
     this.errCode = errCode
     this.code = code
   }
 }
 
 class ParameterException extends HttpException {
-  constructor() {
-    super('参数错误', 10001, 400)
+  constructor({ message = '参数错误', errCode, code = 400 }) {
+    super({ message, errCode, code })
   }
 }
 
 class NotFoundException extends HttpException {
-  constructor() {
-    super('资源未找到', 10002, 404)
+  constructor({ message = '资源未找到', errCode, code = 404 }) {
+    super({ message, errCode, code })
   }
 }
 
 class AuthFailedException extends HttpException {
-  constructor() {
-    super('授权失败', 10003, 401)
+  constructor({ message = '未授权', errCode, code = 401 }) {
+    super({ message, errCode, code })
   }
 }
 
 class ForbiddenException extends HttpException {
-  constructor() {
-    super('forbidden 权限不够', 10004, 403)
+  constructor({ message = 'forbidden 禁止访问', errCode, code = 403 }) {
+    super({ message, errCode, code })
   }
 }
 

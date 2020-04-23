@@ -1,4 +1,6 @@
 const router = require('koa-router')()
+const genValidator = require('../../middlewares/validate')
+const userValidate = require('../../validator/user')
 
 router.prefix('/api/user')
 
@@ -6,11 +8,9 @@ router.post('/login', async (ctx) => {
   ctx.body = '登陆接口'
 })
 
-router.post('/register', async (ctx) => {
+router.post('/register', genValidator(userValidate), async (ctx) => {
   const { username, password, nickname, phone } = ctx.request.body
-  // console.log(username, password)
-  throw new Error('fffaaa')
-  ctx.body = 'ff'
+  ctx.body = 'jj'
 })
 
 module.exports = router
