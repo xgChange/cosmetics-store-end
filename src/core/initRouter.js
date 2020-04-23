@@ -1,5 +1,6 @@
 /**
- * 自动加载路由 require-directory
+ * 初始化
+ * 自动加载路由 require-directory, 环境变量
  */
 const requireDirectory = require('require-directory')
 const Router = require('koa-router')
@@ -8,6 +9,7 @@ class InitManager {
   static init(app) {
     InitManager.app = app
     InitManager.initLoadRouters('api')
+    InitManager.loadEnv()
   }
 
   static initLoadRouters(str) {
@@ -19,6 +21,12 @@ class InitManager {
         }
       },
     })
+  }
+
+  static loadEnv() {
+    const EnvPath = `${process.cwd()}/src/config/env.js`
+    const Env = require(EnvPath)
+    global.Env = Env
   }
 }
 

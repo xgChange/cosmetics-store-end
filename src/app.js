@@ -5,14 +5,13 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const KoaStatic = require('koa-static')
 const logger = require('koa-logger')
-const InitManager = require('./src/core/initRouter')
+const InitManager = require('./core/initRouter')
+const CatchError = require('./middlewares/exception')
 
 const path = require('path')
 
-// error handler
 onerror(app)
 
-// middlewares
 app.use(
   bodyparser({
     enableTypes: ['json', 'form', 'text'],
@@ -21,6 +20,9 @@ app.use(
 app.use(json())
 app.use(logger())
 app.use(KoaStatic(__dirname + '/src/public/dist')) // public下的文件当做静态资源来访问
+
+// 错误处理
+app.use(CatchError)
 
 // router
 InitManager.init(app)
