@@ -1,0 +1,20 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "es6": true,
+    "commonjs": true,
+    "node": true
+  },
+  "rules": {
+    "indent": ["warn", 2],
+    "quotes": [
+      1,
+      "single",
+      {
+        "allowTemplateLiterals": true /*允许模板字符串(es6)*/
+      }
+    ],
+    "semi": ["error", "never"] /*分号*/
+  },
+  "plugins": ["html"]
+}
