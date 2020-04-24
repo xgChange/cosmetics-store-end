@@ -12,6 +12,12 @@ const catchError = async (ctx, next) => {
       const { code } = err.message
       ctx.body = new ErrorModel(err.message)
       ctx.response.status = code
+    } else if (err.status && err.message) {
+      const { status, message } = err
+      ctx.body = {
+        message,
+      }
+      ctx.response.status = status
     } else {
       ctx.body = {
         message: '未知错误',

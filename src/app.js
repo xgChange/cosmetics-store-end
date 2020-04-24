@@ -5,9 +5,9 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const KoaStatic = require('koa-static')
 const logger = require('koa-logger')
+
 const InitManager = require('./core/initRouter')
 const CatchError = require('./middlewares/exception')
-
 const path = require('path')
 
 onerror(app)
@@ -37,7 +37,7 @@ app.use(async (ctx, next) => {
 
 // error-handling
 app.on('error', (err, ctx) => {
-  console.error('server error', err, ctx)
+  console.error('server error', err)
 })
 
 module.exports = app

@@ -4,24 +4,24 @@
 
 module.exports = {
   // 注册
-  registerUserNameExistInfo: {
+  registeExist: {
     errCode: 10001,
     message: '用户名已存在',
   },
-  registerFailInfo: {
+  registerFailed: {
     errCode: 10002,
     message: '注册失败，请重试',
   },
-  registerUserNameNotExistInfo: {
+  registerNotExist: {
     errCode: 10003,
     message: '用户名不存在',
   },
   // 登录
-  loginFailInfo: {
+  loginFailed: {
     errCode: 10004,
-    message: '登录失败，用户名或者密码错误',
+    message: '用户名不存在或者密码错误',
   },
-  loginCheckFailInfo: {
+  loginCheckFailed: {
     errCode: 10005,
     message: '尚未登录',
   },

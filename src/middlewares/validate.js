@@ -11,7 +11,7 @@ function genValidator(func) {
     const err = func(data)
 
     if (err) {
-      jsonSchemaFileInfo.message = `字段 ${err.dataPath} ${err.message}`
+      jsonSchemaFileInfo.message = ` ${err.dataPath} ${err.message}`
       throw new ParameterException(jsonSchemaFileInfo)
     }
 

@@ -14,7 +14,7 @@ const User = seq.define('user', {
     comment: '用户名 唯一',
   },
   password: {
-    type: Sequelize.STRING(20),
+    type: Sequelize.STRING,
     allowNull: false,
     comment: '密码',
   },
@@ -38,6 +38,8 @@ const User = seq.define('user', {
   },
   role: {
     type: Sequelize.DECIMAL,
+    allowNull: false,
+    defaultValue: 1,
     comment: '用户身份权限',
   },
 })

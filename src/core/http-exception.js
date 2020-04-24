@@ -17,12 +17,6 @@ class ParameterException extends HttpException {
   }
 }
 
-class NotFoundException extends HttpException {
-  constructor({ message = '资源未找到', errCode, code = 404 }) {
-    super({ message, errCode, code })
-  }
-}
-
 class AuthFailedException extends HttpException {
   constructor({ message = '未授权', errCode, code = 401 }) {
     super({ message, errCode, code })
@@ -38,7 +32,6 @@ class ForbiddenException extends HttpException {
 module.exports = {
   HttpException,
   ParameterException,
-  NotFoundException,
   AuthFailedException,
   ForbiddenException,
 }
