@@ -12,7 +12,6 @@ class Auth {
   check() {
     return async (ctx, next) => {
       const { scope } = ctx.state.auth
-      console.log(scope)
       if (scope < this.level) {
         throw new ForbiddenException(forbiddenMsg)
       }

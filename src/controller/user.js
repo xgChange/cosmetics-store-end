@@ -13,8 +13,7 @@ const {
 } = require('../model/errInfo')
 
 /**
- * 注册
- * @param {*} param0
+ * @description 注册
  */
 async function register({ username, password, nickname, phone }) {
   const oldUserInfo = await getUserInfo({ username })
@@ -30,8 +29,7 @@ async function register({ username, password, nickname, phone }) {
 }
 
 /**
- * 登录
- * @param {} param0
+ * @description 登录
  */
 async function login({ username, password }) {
   const userInfo = await getUserInfo({ username, password })
@@ -55,7 +53,6 @@ async function auth(id) {
 /**
  * @description 修改用户信息
  */
-
 async function changeInfo({ nickname, phone, picture, address }, id) {
   const result = await updateUserInfo({ nickname, phone, picture, address }, id)
   if (result) {

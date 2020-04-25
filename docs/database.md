@@ -14,15 +14,25 @@
 
 ## 商品表(t_goods)
 
-| 字段            | 类型    | 主键 | 约束              | 备注     |
-| --------------- | ------- | ---- | ----------------- | -------- |
-| id              | int     | Y    | Not null and auto |          |
-| name            | varchar |      |                   |          |
-| price           | varchar |      |                   |          |
-| poster          | varchar |      |                   |          |
-| title           | varchar |      |                   |          |
-| content-picture | varchar |      |                   |          |
-| type            | varchar |      |                   | 商品类型 |
+| 字段    | 类型    | 主键 | 约束              | 备注 |
+| ------- | ------- | ---- | ----------------- | ---- |
+| id      | int     | Y    | Not null and auto |      |
+| name    | varchar |      |                   |      |
+| price   | varchar |      | "分"为单位        |      |
+| poster  | varchar |      |                   |      |
+| title   | varchar |      |                   |      |
+| picture | varchar |      |                   |      |
+| type_id | int     |      |                   |      |
+
+## 商品分类表(t_type)
+
+| 字段      | 类型    | 主键 | 约束 | 备注 |
+| --------- | ------- | ---- | ---- | ---- |
+| id        | int     | Y    |      |      |
+| name      | varchar |      |      |      |
+| parent_id | int     |      |      |      |
+
+
 
 ## 帖子表(t_blogs)
 
@@ -52,7 +62,7 @@
 | ------------ | ------- | ---- | ---- | -------------------------------- |
 | id           | int     | Y    |      |                                  |
 | content      | varchar |      |      |                                  |
-| comment_id   | int     |      |      | 关联的是comment_id               |
+| comment_id   | int     |      |      | 关联的是 comment_id              |
 | reply_type   | int     |      |      | 1.基于评论回复，2.基于回复而回复 |
 | from_user_id | int     |      |      |                                  |
 | to_user_id   |         |      |      |                                  |
@@ -65,6 +75,3 @@
 | user_id  | int     |      |      |      |
 | goods_id | int     |      |      |      |
 | collect  | Boolean |      |      |      |
-
-## 
-

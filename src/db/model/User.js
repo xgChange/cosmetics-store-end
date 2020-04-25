@@ -6,7 +6,7 @@ const Sequelize = require('sequelize')
 const seq = require('../seq')
 
 // users
-const User = seq.define('user', {
+const User = seq.define('t_user', {
   username: {
     type: Sequelize.STRING(20),
     allowNull: false,

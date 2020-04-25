@@ -9,6 +9,8 @@ const logger = require('koa-logger')
 const InitManager = require('./core/initRouter')
 const CatchError = require('./middlewares/exception')
 const path = require('path')
+const jwtKoa = require('koa-jwt')
+const { security, unlessPath } = require('./config/scretkey')
 
 onerror(app)
 
@@ -23,6 +25,13 @@ app.use(KoaStatic(__dirname + '/src/public/dist')) // public下的文件当做�
 
 // 错误处理
 app.use(CatchError)
+
+// jwt
+app.use(
+  jwtKoa({ secret: security.secretKey, key: 'auth' }).unless({
+    path: unlessPath,
+  })
+)
 
 // router
 InitManager.init(app)
