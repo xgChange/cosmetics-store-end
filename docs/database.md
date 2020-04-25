@@ -32,8 +32,6 @@
 | name      | varchar |      |      |      |
 | parent_id | int     |      |      |      |
 
-
-
 ## 帖子表(t_blogs)
 
 | 字段    | 类型    | 主键 | 约束              | 备注                                 |
@@ -75,3 +73,18 @@
 | user_id  | int     |      |      |      |
 | goods_id | int     |      |      |      |
 | collect  | Boolean |      |      |      |
+
+## 完成的接口情况
+
+1. user
+   - login
+   - register
+   - auth
+   - changeInfo
+2. goods
+   - create (admin)
+   - update (admin)
+   - /detail/:id'
+   - delete (admin)
+3. type
+   - create
