@@ -23,9 +23,13 @@ const SCHEMA = {
       type: 'string',
       minLength: 2,
     },
-    type: {
+    detail: {
       type: 'string',
-      minLength: 2,
+      minLength: 1,
+    },
+    type_id: {
+      type: 'number',
+      minimum: 1,
     },
     price: {
       type: 'number',

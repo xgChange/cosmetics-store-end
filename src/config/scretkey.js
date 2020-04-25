@@ -7,5 +7,9 @@ module.exports = {
     secretKey: 'XmXXg_9854+_qwer',
     expiresIn: 60 * 60,
   },
-  unlessPath: [/^\/api\/user\/login/, /^\/api\/user\/register/],
+  unlessPath: [
+    /^\/api\/user\/login/,
+    /^\/api\/user\/register/,
+    /^\/api\/goods\/detail/,
+  ],
 }

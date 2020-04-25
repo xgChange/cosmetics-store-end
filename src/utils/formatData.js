@@ -19,6 +19,12 @@ function _formatObj(item) {
   return item
 }
 
+function _formatDBTime(obj) {
+  obj.createdAtFormat = timeFormat(obj.createdAt)
+  obj.updatedAtFormat = timeFormat(obj.updatedAt)
+  return obj
+}
+
 module.exports = {
   formatUserInfo,
 }

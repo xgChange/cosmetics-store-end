@@ -38,6 +38,11 @@ const Goods = seq.define('t_goods', {
     allowNull: false,
     comment: '商品类型',
   },
+  detail: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    comment: '商品详情属性',
+  },
 })
 
 module.exports = Goods

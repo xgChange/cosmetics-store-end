@@ -1,31 +1,31 @@
 /**
  * @description 访问商品方面的数据
  */
-const { Goods } = require('../db/model/index')
+const { Goods, GoodsType } = require('../db/model/index')
 
-async function createGoods({ name, title, poster, picture, price, type }) {
+async function createGoods({
+  name,
+  title,
+  poster,
+  picture,
+  price,
+  type_id,
+  detail,
+}) {
   const result = await Goods.create({
     name,
     title,
     poster,
     picture,
     price,
-    type,
+    type_id,
+    detail,
   })
   return result.dataValues
 }
 
-async function selectSingleGoods(name) {
-  const result = await Goods.findOne({
-    where: {
-      name,
-    },
-  })
-  return result
-}
-
 async function updateGoodsInfo(
-  { name, title, poster, picture, price, type },
+  { name, title, poster, picture, price, type_id, detail },
   id
 ) {
   const whereOp = {
@@ -47,9 +47,13 @@ async function updateGoodsInfo(
   if (price) {
     updateObj.price = price
   }
-  if (type) {
-    updateObj.type = type
+  if (type_id) {
+    updateObj.type_id = type_id
   }
+  if (detail) {
+    updateObj.detail = detail
+  }
+  console.log(whereOp, updateObj)
   const result = await Goods.update(updateObj, {
     where: whereOp,
   })
@@ -67,9 +71,35 @@ async function deleteGoodsInfo(id) {
   return result > 0
 }
 
+async function getGoodsDetailInfo({ id, name }) {
+  const whereOp = {}
+  if (id) {
+    whereOp.id = id
+  }
+
+  if (name) {
+    whereOp.name = name
+  }
+
+  const result = await Goods.findAndCountAll({
+    where: whereOp,
+    include: [
+      {
+        model: GoodsType,
+        attributes: ['name'],
+      },
+    ],
+  })
+  const info = result.rows.map((item) => {
+    const detail = item.dataValues
+    detail.t_type = detail.t_type.dataValues
+    return detail
+  })
+  return info
+}
 module.exports = {
   createGoods,
   deleteGoodsInfo,
-  selectSingleGoods,
   updateGoodsInfo,
+  getGoodsDetailInfo,
 }

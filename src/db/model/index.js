@@ -31,4 +31,5 @@ module.exports = {
   User,
   Goods,
   Blogs,
+  GoodsType,
 }

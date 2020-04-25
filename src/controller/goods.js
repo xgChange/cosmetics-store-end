@@ -5,8 +5,8 @@
 const {
   createGoods,
   deleteGoodsInfo,
-  selectSingleGoods,
   updateGoodsInfo,
+  getGoodsDetailInfo,
 } = require('../servers/goods')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
 const {
@@ -14,13 +14,22 @@ const {
   deleteGoodsFailed,
   goodsExist,
   updateGoodsFailed,
+  goodsNotExist,
 } = require('../model/errInfo')
 
 /**
  * @description 创建商品 (管理员)
  */
-async function addGoods({ name, title, poster, picture, price, type }) {
-  const goodsInfo = await selectSingleGoods(name)
+async function addGoods({
+  name,
+  title,
+  poster,
+  picture,
+  price,
+  type_id,
+  detail,
+}) {
+  const goodsInfo = await getGoodsDetailInfo({ name })
   if (goodsInfo) {
     return new ErrorModel(goodsExist)
   }
@@ -32,7 +41,8 @@ async function addGoods({ name, title, poster, picture, price, type }) {
       poster,
       picture,
       price,
-      type,
+      type_id,
+      detail,
     })
     return new SuccessModel()
   } catch (err) {
@@ -40,7 +50,10 @@ async function addGoods({ name, title, poster, picture, price, type }) {
   }
 }
 
-async function updateGoods({ name, title, poster, picture, price, type }, id) {
+async function updateGoods(
+  { name, title, poster, picture, price, type_id, detail },
+  id
+) {
   const result = await updateGoodsInfo(
     {
       name,
@@ -48,7 +61,8 @@ async function updateGoods({ name, title, poster, picture, price, type }, id) {
       poster,
       picture,
       price,
-      type,
+      type_id,
+      detail,
     },
     id
   )
@@ -59,15 +73,24 @@ async function updateGoods({ name, title, poster, picture, price, type }, id) {
 }
 
 async function deleteGoods(id) {
-  const result = await deleteGoodsInfo(id)
+  const result = await deleteGoodsInfo({ id })
   if (result) {
     return new SuccessModel()
   }
   return new ErrorModel(deleteGoodsFailed)
 }
 
+async function getGoodsDetail(id) {
+  const info = await getGoodsDetailInfo({ id })
+  if (info && info.length > 0) {
+    return new SuccessModel(info)
+  }
+  return new ErrorModel(goodsNotExist)
+}
+
 module.exports = {
   addGoods,
   deleteGoods,
   updateGoods,
+  getGoodsDetail,
 }

@@ -67,8 +67,21 @@ module.exports = {
     errCode: 10014,
     message: '该商品已存在，请勿重复添加',
   },
-  updateGoodsFailed: {
+  goodsNotExist: {
     errCode: 10015,
+    message: '该商品不存在',
+  },
+  updateGoodsFailed: {
+    errCode: 10016,
     message: '修改商品失败',
+  },
+  // 类型相关
+  goodsTypeExist: {
+    errCode: 10017,
+    message: '该类型已存在，请勿重复添加',
+  },
+  createTypeFailed: {
+    errCode: 10018,
+    message: '创建该类型失败',
   },
 }
