@@ -25,6 +25,7 @@ const SCHEMA = {
     },
     nickname: {
       type: 'string',
+      minLength: 2,
       maxLength: 255,
     },
     picture: {

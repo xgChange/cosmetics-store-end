@@ -1,7 +1,7 @@
 const router = require('koa-router')()
 const genValidator = require('../../middlewares/validate')
 const userValidate = require('../../validator/user')
-const { login, register, auth } = require('../../controller/user')
+const { login, register, auth, changeInfo } = require('../../controller/user')
 const jwtKoa = require('koa-jwt')
 const { security } = require('../../config/scretkey')
 
@@ -24,7 +24,25 @@ router.get(
   '/auth',
   jwtKoa({ secret: security.secretKey, key: 'auth' }),
   async (ctx) => {
-    ctx.body = await auth(ctx.state.auth.id)
+    ctx.body = await auth(ctx.state.auth.uid)
+  }
+)
+
+router.patch(
+  '/changeInfo',
+  genValidator(userValidate),
+  jwtKoa({ secret: security.secretKey, key: 'auth' }),
+  async (ctx) => {
+    const { nickname, phone, picture, address } = ctx.request.body
+    ctx.body = await changeInfo(
+      {
+        nickname,
+        phone,
+        picture,
+        address,
+      },
+      ctx.state.auth.uid
+    )
   }
 )
 

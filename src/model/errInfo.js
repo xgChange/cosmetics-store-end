@@ -27,26 +27,31 @@ module.exports = {
   },
   // 删除用户
   deleteUserFailInfo: {
-    errCode: 10010,
+    errCode: 10006,
     message: '删除用户失败',
   },
   //json schema 校验失败
   jsonSchemaFileInfo: {
-    errCode: 10009,
+    errCode: 10007,
     message: '数据格式校验错误',
   },
   // 文件
   uploadFileSizeFailInfo: {
-    errCode: 10007,
+    errCode: 10008,
     message: '上传文件尺寸过大',
   },
   // 修改信息
-  changeInfoFailInfo: {
-    errCode: 10008,
+  changeInfoFailed: {
+    errCode: 10009,
     message: '修改基本信息失败',
   },
   changePasswordFailInfo: {
-    errCode: 10006,
+    errCode: 10010,
     message: '修改密码失败',
+  },
+  // 权限不足
+  forbiddenMsg: {
+    errCode: 10011,
+    message: '权限不足',
   },
 }

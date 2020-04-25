@@ -52,7 +52,32 @@ async function createUser({ username, password, nickname, phone }) {
   return result
 }
 
+async function updateUserInfo({ nickname, phone, picture, address }, id) {
+  const whereOp = {
+    id,
+  }
+  const updateObj = {}
+  if (nickname) {
+    updateObj.nickname = nickname
+  }
+  if (phone) {
+    updateObj.phone = phone
+  }
+  if (picture) {
+    updateObj.picture = picture
+  }
+  if (address) {
+    updateObj.address = address
+  }
+  const result = await User.update(updateObj, {
+    where: whereOp,
+  })
+
+  return result[0] > 0
+}
+
 module.exports = {
   getUserInfo,
   createUser,
+  updateUserInfo,
 }

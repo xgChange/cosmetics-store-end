@@ -3,12 +3,13 @@
  */
 
 const generateToken = require('../core/token')
-const { getUserInfo, createUser } = require('../servers/user')
+const { getUserInfo, createUser, updateUserInfo } = require('../servers/user')
 const { ErrorModel, SuccessModel } = require('../model/resModel')
 const {
   registeExist,
   registerFailed,
   loginFailed,
+  changeInfoFailed,
 } = require('../model/errInfo')
 
 /**
@@ -44,15 +45,27 @@ async function login({ username, password }) {
 }
 
 /**
- * 获取用户信息
+ * @description 获取用户信息
  */
 async function auth(id) {
   const userInfo = await getUserInfo({ id })
   return new SuccessModel(userInfo)
 }
 
+/**
+ * @description 修改用户信息
+ */
+
+async function changeInfo({ nickname, phone, picture, address }, id) {
+  const result = await updateUserInfo({ nickname, phone, picture, address }, id)
+  if (result) {
+    return new SuccessModel()
+  }
+  return new ErrorModel(changeInfoFailed)
+}
 module.exports = {
   register,
   login,
   auth,
+  changeInfo,
 }
