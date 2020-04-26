@@ -7,6 +7,8 @@ const {
   deleteGoodsInfo,
   updateGoodsInfo,
   getGoodsDetailInfo,
+  getCategoryInfoByName,
+  getGoodsCategoryAllInfo,
 } = require('../servers/goods')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
 const {
@@ -14,7 +16,6 @@ const {
   deleteGoodsFailed,
   goodsExist,
   updateGoodsFailed,
-  goodsNotExist,
 } = require('../model/errInfo')
 
 /**
@@ -30,7 +31,7 @@ async function addGoods({
   detail,
 }) {
   const goodsInfo = await getGoodsDetailInfo({ name })
-  if (goodsInfo) {
+  if (goodsInfo && goodsInfo.length > 0) {
     return new ErrorModel(goodsExist)
   }
 
@@ -82,10 +83,17 @@ async function deleteGoods(id) {
 
 async function getGoodsDetail(id) {
   const info = await getGoodsDetailInfo({ id })
-  if (info && info.length > 0) {
-    return new SuccessModel(info)
-  }
-  return new ErrorModel(goodsNotExist)
+  return new SuccessModel(info)
+}
+
+async function getGoodsCategoryInfo(id) {
+  const info = await getCategoryInfoByName(id)
+  return new SuccessModel(info)
+}
+
+async function getGoodsCategoryAll() {
+  const info = await getGoodsCategoryAllInfo()
+  return new SuccessModel(info)
 }
 
 module.exports = {
@@ -93,4 +101,6 @@ module.exports = {
   deleteGoods,
   updateGoods,
   getGoodsDetail,
+  getGoodsCategoryInfo,
+  getGoodsCategoryAll,
 }

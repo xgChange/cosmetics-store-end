@@ -2,6 +2,7 @@
  * @description 访问商品方面的数据
  */
 const { Goods, GoodsType } = require('../db/model/index')
+const { getTree } = require('../utils/utils')
 
 async function createGoods({
   name,
@@ -53,7 +54,6 @@ async function updateGoodsInfo(
   if (detail) {
     updateObj.detail = detail
   }
-  console.log(whereOp, updateObj)
   const result = await Goods.update(updateObj, {
     where: whereOp,
   })
@@ -97,9 +97,45 @@ async function getGoodsDetailInfo({ id, name }) {
   })
   return info
 }
+
+async function getCategoryInfoByName(id) {
+  const whereOp = {}
+  if (id) {
+    whereOp.id = id
+  }
+  const result = await Goods.findAndCountAll({
+    include: [
+      {
+        model: GoodsType,
+        attributes: ['name'],
+        where: whereOp,
+      },
+    ],
+  })
+  console.log(whereOp)
+  const info = result.rows.map((item) => {
+    const goods = item.dataValues
+    goods.t_type = goods.t_type.dataValues
+    return goods
+  })
+  return info
+}
+
+async function getGoodsCategoryAllInfo() {
+  const result = await GoodsType.findAndCountAll()
+  const { count, rows } = result
+  const info = rows.map((item) => item.dataValues)
+  return {
+    categoryNames: getTree(info, 0),
+    count,
+  }
+}
+
 module.exports = {
   createGoods,
   deleteGoodsInfo,
   updateGoodsInfo,
   getGoodsDetailInfo,
+  getCategoryInfoByName,
+  getGoodsCategoryAllInfo,
 }

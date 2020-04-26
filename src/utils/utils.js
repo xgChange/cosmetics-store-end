@@ -29,10 +29,11 @@ function getTree(arr, parent) {
   let newArr = []
 
   temp.forEach((item) => {
-    if (item.pid === parent) {
+    if (item.parent_id === parent) {
       let obj = {}
       obj.id = item.id
-      obj.pid = item.pid
+      obj.parent_id = item.parent_id
+      obj.name = item.name
       obj.children = getTree(temp, item.id)
       newArr = newArr.concat(obj)
     }

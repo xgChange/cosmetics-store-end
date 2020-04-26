@@ -10,6 +10,8 @@ const {
   deleteGoods,
   updateGoods,
   getGoodsDetail,
+  getGoodsCategoryInfo,
+  getGoodsCategoryAll,
 } = require('../../controller/goods')
 const Auth = require('../../middlewares/authority')
 
@@ -68,6 +70,18 @@ router.patch(
 router.get('/detail/:id', async (ctx) => {
   const { id } = ctx.params
   ctx.body = await getGoodsDetail(id)
+})
+
+//查询所有分类
+router.get('/category/all', async (ctx) => {
+  ctx.body = await getGoodsCategoryAll()
+})
+
+// 查询特定分类的商品
+router.get('/category/info/:id', async (ctx) => {
+  let { id } = ctx.params
+  id = parseInt(id)
+  ctx.body = await getGoodsCategoryInfo(id)
 })
 
 // admin
