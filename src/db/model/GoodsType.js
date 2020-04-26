@@ -16,6 +16,8 @@ const GoodsType = seq.define('t_type', {
   },
   parent_id: {
     type: Sequelize.INTEGER,
+    defaultValue: 0,
+    allowNull: false,
     comment: '父级id',
   },
 })

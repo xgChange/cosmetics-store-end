@@ -8,9 +8,10 @@ const Auth = require('../../middlewares/authority')
 
 router.prefix('/api/type')
 
+// admin
 router.post('/create', new Auth(9).check(), async (ctx) => {
-  const { name } = ctx.request.body
-  ctx.body = await createGoodsType(name)
+  const { typeInfo } = ctx.request.body
+  ctx.body = await createGoodsType(typeInfo)
 })
 
 module.exports = router

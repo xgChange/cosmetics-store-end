@@ -3,9 +3,10 @@
  */
 const { GoodsType } = require('../db/model/index')
 
-async function addType(name) {
+async function addType({ name, parent_id }) {
   const result = await GoodsType.create({
     name,
+    parent_id,
   })
   return result.dataValues
 }

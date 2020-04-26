@@ -19,6 +19,7 @@ const catchError = async (ctx, next) => {
       }
       ctx.response.status = status
     } else {
+      console.error(err)
       ctx.body = {
         message: '未知错误',
       }

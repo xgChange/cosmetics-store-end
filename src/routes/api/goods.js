@@ -15,6 +15,7 @@ const Auth = require('../../middlewares/authority')
 
 router.prefix('/api/goods')
 
+// admin
 router.post(
   '/create',
   new Auth(9).check(),
@@ -41,6 +42,7 @@ router.post(
   }
 )
 
+// admin
 router.patch(
   '/update',
   new Auth(9).check(),
@@ -63,17 +65,12 @@ router.patch(
   }
 )
 
-/**
- * @description 获取商品详情
- */
 router.get('/detail/:id', async (ctx) => {
   const { id } = ctx.params
   ctx.body = await getGoodsDetail(id)
 })
 
-/**
- * @description 管理员删除商品
- */
+// admin
 router.post('/delete', new Auth(9).check(), async (ctx) => {
   ctx.body = await deleteGoods(ctx.request.body.id)
 })

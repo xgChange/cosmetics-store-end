@@ -5,7 +5,7 @@
 module.exports = {
   security: {
     secretKey: 'XmXXg_9854+_qwer',
-    expiresIn: 60 * 60,
+    expiresIn: 60 * 60 * 24,
   },
   unlessPath: [
     /^\/api\/user\/login/,
