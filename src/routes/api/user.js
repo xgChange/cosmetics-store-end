@@ -1,7 +1,14 @@
 const router = require('koa-router')()
 const genValidator = require('../../middlewares/validate')
 const userValidate = require('../../validator/user')
-const { login, register, auth, changeInfo } = require('../../controller/user')
+const {
+  login,
+  register,
+  auth,
+  changeInfo,
+  createAddress,
+  updateAddress,
+} = require('../../controller/user')
 
 router.prefix('/api/user')
 
@@ -11,8 +18,8 @@ router.post('/login', async (ctx) => {
 })
 
 router.post('/register', genValidator(userValidate), async (ctx) => {
-  const { username, password, nickname, phone } = ctx.request.body
-  ctx.body = await register({ username, password, nickname, phone })
+  const { username, password, nickname, phone, picture } = ctx.request.body
+  ctx.body = await register({ username, password, nickname, phone, picture })
 })
 
 /**
@@ -35,4 +42,13 @@ router.patch('/changeInfo', genValidator(userValidate), async (ctx) => {
   )
 })
 
+router.post('/address/create', async (ctx) => {
+  const { name, tel, address } = ctx.request.body
+  ctx.body = await createAddress({ name, tel, address }, ctx.state.auth.uid)
+})
+
+router.patch('/address/update', async (ctx) => {
+  const { name, tel, address, id } = ctx.request.body
+  ctx.body = await updateAddress({ name, tel, address, id })
+})
 module.exports = router

@@ -112,7 +112,6 @@ async function getCategoryInfoByName(id) {
       },
     ],
   })
-  console.log(whereOp)
   const info = result.rows.map((item) => {
     const goods = item.dataValues
     goods.t_type = goods.t_type.dataValues

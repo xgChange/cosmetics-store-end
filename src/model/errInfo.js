@@ -84,4 +84,13 @@ module.exports = {
     errCode: 10018,
     message: '创建该类型失败',
   },
+  // 地址相关
+  createAddressFailed: {
+    errCode: 10019,
+    message: '创建地址失败',
+  },
+  updateAddressFailed: {
+    errCode: 10020,
+    message: '修改地址失败',
+  },
 }
