@@ -28,9 +28,11 @@ app.use(CatchError)
 
 // jwt
 app.use(
-  jwtKoa({ secret: security.secretKey, key: 'auth' }).unless({
-    path: unlessPath,
-  })
+  jwtKoa({ secret: security.secretKey, key: 'auth', passthrough: true }).unless(
+    {
+      path: unlessPath,
+    }
+  )
 )
 
 // router

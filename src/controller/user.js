@@ -25,7 +25,7 @@ const {
  */
 async function register({ username, password, nickname, phone, picture }) {
   const oldUserInfo = await getUserInfo({ username })
-  if (oldUserInfo) {
+  if (oldUserInfo && oldUserInfo.leng > 0) {
     return new ErrorModel(registeExist)
   }
   try {
@@ -45,7 +45,7 @@ async function login({ username, password }) {
   if (!userInfo) {
     return new ErrorModel(loginFailed)
   }
-  const { id, role } = userInfo
+  const { id, role } = userInfo[0]
   const token = generateToken(id, role)
   return new SuccessModel({ token })
 }
@@ -63,6 +63,7 @@ async function auth(id) {
  */
 async function changeInfo({ nickname, phone, picture, address }, id) {
   const result = await updateUserInfo({ nickname, phone, picture, address }, id)
+  console.log(result)
   if (result) {
     return new SuccessModel()
   }
@@ -74,6 +75,7 @@ async function createAddress({ name, tel, address }, user_id) {
     await createAddressInfo({ name, tel, address }, user_id)
     return new SuccessModel()
   } catch (error) {
+    console.log(error)
     return new ErrorModel(createAddressFailed)
   }
 }

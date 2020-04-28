@@ -1,6 +1,7 @@
 const router = require('koa-router')()
 const genValidator = require('../../middlewares/validate')
 const userValidate = require('../../validator/user')
+
 const {
   login,
   register,
@@ -31,6 +32,7 @@ router.get('/auth', async (ctx) => {
 
 router.patch('/changeInfo', genValidator(userValidate), async (ctx) => {
   const { nickname, phone, picture, address } = ctx.request.body
+  console.log(nickname, phone, picture)
   ctx.body = await changeInfo(
     {
       nickname,
@@ -44,6 +46,7 @@ router.patch('/changeInfo', genValidator(userValidate), async (ctx) => {
 
 router.post('/address/create', async (ctx) => {
   const { name, tel, address } = ctx.request.body
+  console.log(ctx.state.auth.uid)
   ctx.body = await createAddress({ name, tel, address }, ctx.state.auth.uid)
 })
 

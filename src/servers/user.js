@@ -79,6 +79,7 @@ async function updateUserInfo({ nickname, phone, picture, address }, id) {
   if (address) {
     updateObj.address = address
   }
+  console.log(whereOp, updateObj)
   const result = await User.update(updateObj, {
     where: whereOp,
   })
