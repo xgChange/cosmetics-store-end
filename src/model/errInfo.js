@@ -93,4 +93,8 @@ module.exports = {
     errCode: 10020,
     message: '修改地址失败',
   },
+  AuthFailed: {
+    errCode: 10021,
+    message: '无效的token',
+  },
 }

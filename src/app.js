@@ -8,6 +8,7 @@ const logger = require('koa-logger')
 
 const InitManager = require('./core/initRouter')
 const CatchError = require('./middlewares/exception')
+const Authority = require('./middlewares/authority')
 const path = require('path')
 const jwtKoa = require('koa-jwt')
 const { security, unlessPath } = require('./config/scretkey')
@@ -34,6 +35,8 @@ app.use(
     }
   )
 )
+
+// app.use(new Authority().checkToken())
 
 // router
 InitManager.init(app)

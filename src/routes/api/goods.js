@@ -12,6 +12,7 @@ const {
   getGoodsDetail,
   getGoodsCategoryInfo,
   getGoodsCategoryAll,
+  getGoodsByKeyWords,
 } = require('../../controller/goods')
 const Auth = require('../../middlewares/authority')
 
@@ -81,7 +82,14 @@ router.get('/category/all', async (ctx) => {
 router.get('/category/info/:id', async (ctx) => {
   let { id } = ctx.params
   id = parseInt(id)
+
   ctx.body = await getGoodsCategoryInfo(id)
+})
+
+// 根据关键字查询特定的商品
+router.get('/search', async (ctx) => {
+  const { key } = ctx.query
+  ctx.body = await getGoodsByKeyWords(key)
 })
 
 // admin

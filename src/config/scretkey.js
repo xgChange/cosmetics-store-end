@@ -12,6 +12,6 @@ module.exports = {
     /^\/api\/user\/register/,
     /^\/api\/goods\/detail/,
     /^\/api\/goods\/category/,
-    // /^\/api\/goods\/category\/all/,
+    /^\/api\/goods\/search/,
   ],
 }

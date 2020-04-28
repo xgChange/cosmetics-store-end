@@ -1,8 +1,11 @@
 /**
  * @description 设置权限
  */
-const { ForbiddenException } = require('../core/http-exception')
-const { forbiddenMsg } = require('../model/errInfo')
+const {
+  ForbiddenException,
+  AuthFailedException,
+} = require('../core/http-exception')
+const { forbiddenMsg, AuthFailed } = require('../model/errInfo')
 
 class Auth {
   constructor(level) {
@@ -11,12 +14,24 @@ class Auth {
 
   check() {
     return async (ctx, next) => {
-      const { scope } = ctx.state.auth
-      if (scope < this.level) {
-        throw new ForbiddenException(forbiddenMsg)
+      if (ctx.state.auth) {
+        const { scope } = ctx.state.auth
+        if (scope < this.level) {
+          throw new ForbiddenException(forbiddenMsg)
+        }
+        await next()
+      } else {
+        throw new AuthFailedException(AuthFailed)
       }
+    }
+  }
 
-      await next()
+  checkToken() {
+    return async (ctx, next) => {
+      if (!ctx.state.auth) {
+        throw new AuthFailedException(AuthFailed)
+      }
+      next()
     }
   }
 }

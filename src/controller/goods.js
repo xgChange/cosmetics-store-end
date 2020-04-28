@@ -9,6 +9,7 @@ const {
   getGoodsDetailInfo,
   getCategoryInfoByName,
   getGoodsCategoryAllInfo,
+  getGoodsInfoByKey,
 } = require('../servers/goods')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
 const {
@@ -96,6 +97,12 @@ async function getGoodsCategoryAll() {
   return new SuccessModel(info)
 }
 
+// 通过关键字查询 商品
+async function getGoodsByKeyWords(key) {
+  const info = await getGoodsInfoByKey(key)
+  return new SuccessModel(info)
+}
+
 module.exports = {
   addGoods,
   deleteGoods,
@@ -103,4 +110,5 @@ module.exports = {
   getGoodsDetail,
   getGoodsCategoryInfo,
   getGoodsCategoryAll,
+  getGoodsByKeyWords,
 }

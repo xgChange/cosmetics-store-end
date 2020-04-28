@@ -3,6 +3,8 @@
  */
 const { Goods, GoodsType } = require('../db/model/index')
 const { getTree } = require('../utils/utils')
+var Sequelize = require('sequelize')
+var Op = Sequelize.Op
 
 async function createGoods({
   name,
@@ -20,7 +22,7 @@ async function createGoods({
     picture,
     price,
     type_id,
-    detail,
+    detail: JSON.stringify(detail),
   })
   return result.dataValues
 }
@@ -98,6 +100,7 @@ async function getGoodsDetailInfo({ id, name }) {
   return info
 }
 
+// 通过分类名字 获取 对应的产品
 async function getCategoryInfoByName(id) {
   const whereOp = {}
   if (id) {
@@ -120,6 +123,7 @@ async function getCategoryInfoByName(id) {
   return info
 }
 
+// 获取所有分类
 async function getGoodsCategoryAllInfo() {
   const result = await GoodsType.findAndCountAll()
   const { count, rows } = result
@@ -130,6 +134,19 @@ async function getGoodsCategoryAllInfo() {
   }
 }
 
+// 通过关键字 模糊查询
+async function getGoodsInfoByKey(key) {
+  const result = await Goods.findAll({
+    where: {
+      name: {
+        [Op.like]: `%${key}%`,
+      },
+    },
+  })
+  const info = result.map((item) => item.dataValues)
+  return info
+}
+
 module.exports = {
   createGoods,
   deleteGoodsInfo,
@@ -137,4 +154,5 @@ module.exports = {
   getGoodsDetailInfo,
   getCategoryInfoByName,
   getGoodsCategoryAllInfo,
+  getGoodsInfoByKey,
 }

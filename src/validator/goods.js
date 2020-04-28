@@ -24,7 +24,7 @@ const SCHEMA = {
       minLength: 2,
     },
     detail: {
-      type: 'string',
+      type: 'object',
       minLength: 1,
     },
     type_id: {
