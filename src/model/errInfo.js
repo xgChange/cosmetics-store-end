@@ -97,4 +97,12 @@ module.exports = {
     errCode: 10021,
     message: '无效的token',
   },
+  createOrderFailed: {
+    errCode: 10022,
+    message: '创建订单失败',
+  },
+  updateOrderFailed: {
+    errCode: 10023,
+    message: '状态修改错误',
+  },
 }

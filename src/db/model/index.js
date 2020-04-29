@@ -7,6 +7,8 @@ const Goods = require('./Goods')
 const Blogs = require('./Blogs')
 const GoodsType = require('./GoodsType')
 const Address = require('./Address')
+const Order = require('./Order')
+const OrderDetail = require('./Orderdetail')
 
 // 设置外键
 
@@ -41,4 +43,6 @@ module.exports = {
   Blogs,
   GoodsType,
   Address,
+  Order,
+  OrderDetail,
 }
