@@ -105,4 +105,8 @@ module.exports = {
     errCode: 10023,
     message: '状态修改错误',
   },
+  createCollectFailed: {
+    errCode: 10024,
+    message: '创建收藏失败',
+  },
 }

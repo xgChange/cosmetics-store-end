@@ -1,7 +1,7 @@
 /**
  * @description 访问商品方面的数据
  */
-const { Goods, GoodsType } = require('../db/model/index')
+const { Goods, GoodsType, Collect } = require('../db/model/index')
 const { getTree } = require('../utils/utils')
 var Sequelize = require('sequelize')
 var Op = Sequelize.Op
@@ -147,6 +147,47 @@ async function getGoodsInfoByKey(key) {
   return info
 }
 
+// 收藏商品
+async function addCollectInfo({ user_id, goods_id, collect }) {
+  const info = await Collect.create({
+    user_id,
+    goods_id,
+    collect,
+  })
+  return info
+}
+
+async function updateCollectInfo({ user_id, goods_id, collect }) {
+  await Collect.update(
+    {
+      collect,
+    },
+    {
+      where: {
+        user_id,
+        goods_id,
+      },
+    }
+  )
+}
+
+async function findCollectInfo({ user_id, goods_id, collect }) {
+  let whereObj = {}
+
+  if (user_id) {
+    Object.assign(whereObj, { user_id })
+  }
+
+  if (goods_id) {
+    Object.assign(whereObj, { goods_id })
+  }
+
+  const info = await Collect.findOne({
+    where: whereObj,
+  })
+  if (!info) return info
+  return info.dataValues
+}
 module.exports = {
   createGoods,
   deleteGoodsInfo,
@@ -155,4 +196,7 @@ module.exports = {
   getCategoryInfoByName,
   getGoodsCategoryAllInfo,
   getGoodsInfoByKey,
+  addCollectInfo,
+  updateCollectInfo,
+  findCollectInfo,
 }

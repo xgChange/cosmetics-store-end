@@ -9,6 +9,7 @@ const GoodsType = require('./GoodsType')
 const Address = require('./Address')
 const Order = require('./Order')
 const OrderDetail = require('./Orderdetail')
+const Collect = require('./Collect')
 
 // 设置外键
 
@@ -45,4 +46,5 @@ module.exports = {
   Address,
   Order,
   OrderDetail,
+  Collect,
 }

@@ -10,6 +10,9 @@ const {
   getCategoryInfoByName,
   getGoodsCategoryAllInfo,
   getGoodsInfoByKey,
+  addCollectInfo,
+  updateCollectInfo,
+  findCollectInfo,
 } = require('../servers/goods')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
 const {
@@ -103,6 +106,26 @@ async function getGoodsByKeyWords(key) {
   return new SuccessModel(info)
 }
 
+// 收藏商品
+async function addCollect({ user_id, goods_id, collect }) {
+  try {
+    const info = await findCollectInfo({ user_id, goods_id, collect })
+    if (info) {
+      await updateCollectInfo({ user_id, goods_id, collect })
+    } else {
+      await addCollectInfo({ user_id, goods_id, collect })
+    }
+    return new SuccessModel()
+  } catch (err) {
+    return new ErrorModel(updateGoodsFailed)
+  }
+}
+
+async function findCollect({ user_id, goods_id, collect }) {
+  const info = await findCollectInfo({ user_id, goods_id, collect })
+  return new SuccessModel(info)
+}
+
 module.exports = {
   addGoods,
   deleteGoods,
@@ -111,4 +134,6 @@ module.exports = {
   getGoodsCategoryInfo,
   getGoodsCategoryAll,
   getGoodsByKeyWords,
+  addCollect,
+  findCollect,
 }

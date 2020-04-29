@@ -13,6 +13,8 @@ const {
   getGoodsCategoryInfo,
   getGoodsCategoryAll,
   getGoodsByKeyWords,
+  addCollect,
+  findCollect,
 } = require('../../controller/goods')
 const Auth = require('../../middlewares/authority')
 
@@ -90,6 +92,15 @@ router.get('/category/info/:id', async (ctx) => {
 router.get('/search', async (ctx) => {
   const { key } = ctx.query
   ctx.body = await getGoodsByKeyWords(key)
+})
+
+router.post('/collect', async (ctx) => {
+  const { user_id, goods_id, collect } = ctx.request.body
+  ctx.body = await addCollect({ user_id, goods_id, collect })
+})
+
+router.get('/getcollect', async (ctx) => {
+  ctx.body = await findCollect({ user_id: ctx.state.auth.uid })
 })
 
 // admin
