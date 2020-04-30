@@ -19,6 +19,9 @@ async function getAllBlogsByIndex({ pageSize = 5, pageIndex, user_id }) {
   const result = await Blogs.findAndCountAll({
     limit: pageSize,
     offset: (pageIndex - 1) * pageSize,
+    where: {
+      type: 1,
+    },
     include: [
       {
         model: User,
