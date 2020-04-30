@@ -10,6 +10,9 @@ const Address = require('./Address')
 const Order = require('./Order')
 const OrderDetail = require('./Orderdetail')
 const Collect = require('./Collect')
+const Reviews = require('./Reviews')
+const Reply = require('./Reply')
+const Comment = require('./Comment')
 
 // 设置外键
 
@@ -47,4 +50,7 @@ module.exports = {
   Order,
   OrderDetail,
   Collect,
+  Reviews,
+  Reply,
+  Comment,
 }

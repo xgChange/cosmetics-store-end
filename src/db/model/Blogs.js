@@ -17,15 +17,14 @@ const Blogs = seq.define('t_blogs', {
     allowNull: false,
     comment: '发表人',
   },
+  picture: {
+    type: Sequelize.STRING,
+    comment: '文章图片',
+  },
   type: {
     type: Sequelize.INTEGER,
     allowNull: false,
-    comment: '文章类型',
-  },
-  picture: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    comment: '文章图片',
+    comment: 'blog类型(1. 普通帖子 2. 评价)',
   },
 })
 

@@ -109,4 +109,8 @@ module.exports = {
     errCode: 10024,
     message: '创建收藏失败',
   },
+  createBlogsFailed: {
+    errCode: 10025,
+    message: '创建博客失败',
+  },
 }

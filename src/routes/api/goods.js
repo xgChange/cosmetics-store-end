@@ -15,6 +15,8 @@ const {
   getGoodsByKeyWords,
   addCollect,
   findCollect,
+  createReviews,
+  findReviewsByGoods,
 } = require('../../controller/goods')
 const Auth = require('../../middlewares/authority')
 
@@ -106,6 +108,24 @@ router.get('/getcollect', async (ctx) => {
 // admin
 router.post('/delete', new Auth(9).check(), async (ctx) => {
   ctx.body = await deleteGoods(ctx.request.body.id)
+})
+
+// 商品评价
+router.post('/reviews/create', async (ctx) => {
+  const { goods_id, grade, content, picture, type } = ctx.request.body
+  ctx.body = await createReviews({
+    goods_id,
+    grade,
+    content,
+    picture,
+    type,
+    user_id: ctx.state.auth.uid,
+  })
+})
+
+router.get('/reviews/find/:goods_id', async (ctx) => {
+  const goods_id = ctx.params.goods_id
+  ctx.body = await findReviewsByGoods(goods_id)
 })
 
 module.exports = router

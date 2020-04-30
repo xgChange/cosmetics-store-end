@@ -1,7 +1,14 @@
 /**
  * @description 访问商品方面的数据
  */
-const { Goods, GoodsType, Collect } = require('../db/model/index')
+const {
+  Goods,
+  GoodsType,
+  Collect,
+  Reviews,
+  Blogs,
+  User,
+} = require('../db/model/index')
 const { getTree } = require('../utils/utils')
 var Sequelize = require('sequelize')
 var Op = Sequelize.Op
@@ -157,6 +164,7 @@ async function addCollectInfo({ user_id, goods_id, collect }) {
   return info
 }
 
+// 更新收藏商品
 async function updateCollectInfo({ user_id, goods_id, collect }) {
   await Collect.update(
     {
@@ -188,6 +196,48 @@ async function findCollectInfo({ user_id, goods_id, collect }) {
   if (!info) return info
   return info.dataValues
 }
+
+// 商品评价
+async function createReviewsInfo({ goods_id, grade, blog_id }) {
+  const info = await Reviews.create({
+    goods_id,
+    grade,
+    blog_id,
+  })
+  return info
+}
+
+async function findReviewsInfoByGoods(goods_id) {
+  const info = await Reviews.findAndCountAll({
+    attributes: ['id', 'grade'],
+    where: {
+      goods_id,
+    },
+    // order: [['id', 'desc']],
+    include: [
+      {
+        association: Reviews.belongsTo(Blogs, {
+          foreignKey: 'blog_id',
+          targetKey: 'id',
+        }),
+        include: [
+          {
+            model: User,
+            attributes: ['id', 'username', 'nickname', 'picture'],
+          },
+        ],
+      },
+    ],
+  })
+  const result = info.rows.map((item) => {
+    const detail = item.dataValues
+    detail.t_blog = detail.t_blog.dataValues
+    detail.t_blog.t_user = detail.t_blog.t_user.dataValues
+    return detail
+  })
+  return result
+}
+
 module.exports = {
   createGoods,
   deleteGoodsInfo,
@@ -199,4 +249,6 @@ module.exports = {
   addCollectInfo,
   updateCollectInfo,
   findCollectInfo,
+  createReviewsInfo,
+  findReviewsInfoByGoods,
 }

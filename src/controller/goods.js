@@ -13,13 +13,17 @@ const {
   addCollectInfo,
   updateCollectInfo,
   findCollectInfo,
+  createReviewsInfo,
+  findReviewsInfoByGoods,
 } = require('../servers/goods')
+const { createBlogsInfo, getAllBlogsByIndex } = require('../servers/blogs')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
 const {
   createGoodsField,
   deleteGoodsFailed,
   goodsExist,
   updateGoodsFailed,
+  createBlogsFailed,
 } = require('../model/errInfo')
 
 /**
@@ -126,6 +130,35 @@ async function findCollect({ user_id, goods_id, collect }) {
   return new SuccessModel(info)
 }
 
+// 商品评价
+async function createReviews({
+  goods_id,
+  grade,
+  content,
+  picture,
+  type,
+  user_id,
+}) {
+  try {
+    const blogInfo = await createBlogsInfo({ content, picture, user_id, type })
+    if (blogInfo) {
+      let blog_id = blogInfo.id
+      await createReviewsInfo({ goods_id, grade, blog_id })
+      return new SuccessModel()
+    }
+  } catch (err) {
+    console.log(err)
+    return new ErrorModel(createBlogsFailed)
+  }
+}
+
+// 查看商品评价
+async function findReviewsByGoods(goods_id) {
+  //
+  const info = await findReviewsInfoByGoods(goods_id)
+  return new SuccessModel(info)
+}
+
 module.exports = {
   addGoods,
   deleteGoods,
@@ -136,4 +169,6 @@ module.exports = {
   getGoodsByKeyWords,
   addCollect,
   findCollect,
+  createReviews,
+  findReviewsByGoods,
 }
