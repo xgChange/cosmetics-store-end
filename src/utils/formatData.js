@@ -1,6 +1,7 @@
 /**
  * @description 格式化数据
  */
+const { timeFormat } = require('./_formatTime')
 
 function formatUserInfo(data) {
   if (data === null) return null
@@ -19,6 +20,14 @@ function _formatObj(item) {
   return item
 }
 
+function formatDataTime(data) {
+  if (data === null) return null
+  if (Array.isArray(data)) {
+    return data.map(_formatDBTime)
+  }
+  return _formatObj(data)
+}
+
 function _formatDBTime(obj) {
   obj.createdAtFormat = timeFormat(obj.createdAt)
   obj.updatedAtFormat = timeFormat(obj.updatedAt)
@@ -27,4 +36,5 @@ function _formatDBTime(obj) {
 
 module.exports = {
   formatUserInfo,
+  formatDataTime,
 }

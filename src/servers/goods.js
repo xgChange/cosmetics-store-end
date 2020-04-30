@@ -10,6 +10,7 @@ const {
   User,
 } = require('../db/model/index')
 const { getTree } = require('../utils/utils')
+const { formatDataTime } = require('../utils/formatData')
 var Sequelize = require('sequelize')
 var Op = Sequelize.Op
 
@@ -220,6 +221,9 @@ async function findReviewsInfoByGoods(goods_id) {
           foreignKey: 'blog_id',
           targetKey: 'id',
         }),
+        where: {
+          type: 2,
+        },
         include: [
           {
             model: User,
