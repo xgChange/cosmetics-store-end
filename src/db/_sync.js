@@ -17,6 +17,6 @@ seq.authenticate().then(() => {
 // 3. 删除同名数据表后同步数据，会导致数据丢失 seq.sync({force: true})
 
 // 执行同步 {force: true} 每次同步的时候都把表清空，重建 if exits
-seq.sync({ alter: true }).then(() => {
+seq.sync({ force: true }).then(() => {
   process.exit()
 })

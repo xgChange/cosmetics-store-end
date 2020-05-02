@@ -11,6 +11,7 @@ router.prefix('/api/utils')
 // 上传图片
 router.post('/upload', koaForm(), async (ctx, next) => {
   const file = ctx.req.files['file']
+  console.log(file)
   if (!file) {
     return
   }
