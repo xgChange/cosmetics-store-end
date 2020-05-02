@@ -41,8 +41,7 @@ async function register({ username, password, nickname, phone, picture }) {
  */
 async function login({ username, password }) {
   const userInfo = await getUserInfo({ username, password })
-
-  if (!userInfo) {
+  if (userInfo && userInfo.length === 0) {
     return new ErrorModel(loginFailed)
   }
   const { id, role } = userInfo[0]

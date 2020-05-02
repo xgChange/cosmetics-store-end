@@ -30,7 +30,7 @@ async function createGoods({
     picture,
     price,
     type_id,
-    detail: JSON.stringify(detail),
+    detail,
   })
   return result.dataValues
 }

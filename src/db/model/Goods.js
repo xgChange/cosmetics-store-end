@@ -20,7 +20,6 @@ const Goods = seq.define('t_goods', {
   },
   poster: {
     type: Sequelize.STRING,
-    allowNull: false,
     comment: '商品海报',
   },
   picture: {

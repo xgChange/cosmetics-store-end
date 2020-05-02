@@ -34,7 +34,10 @@ function getTree(arr, parent) {
       obj.id = item.id
       obj.parent_id = item.parent_id
       obj.name = item.name
+      obj.value = item.value
+      obj.label = item.label
       obj.children = getTree(temp, item.id)
+      if (obj.children && obj.children.length === 0) delete obj.children
       newArr = newArr.concat(obj)
     }
   })

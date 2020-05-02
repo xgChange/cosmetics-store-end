@@ -55,6 +55,7 @@ async function addGoods({
     })
     return new SuccessModel()
   } catch (err) {
+    console.log(err)
     return new ErrorModel(createGoodsField)
   }
 }

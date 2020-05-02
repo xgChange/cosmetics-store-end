@@ -23,10 +23,6 @@ const SCHEMA = {
       type: 'string',
       minLength: 2,
     },
-    detail: {
-      type: 'object',
-      minLength: 1,
-    },
     type_id: {
       type: 'number',
       minimum: 1,

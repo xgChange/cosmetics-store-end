@@ -12,6 +12,7 @@ const Authority = require('./middlewares/authority')
 const path = require('path')
 const jwtKoa = require('koa-jwt')
 const { security, unlessPath } = require('./config/scretkey')
+const Cors = require('koa2-cors')
 
 onerror(app)
 
@@ -23,6 +24,7 @@ app.use(
 app.use(json())
 app.use(logger())
 app.use(KoaStatic(__dirname + '/src/public/dist')) // public下的文件当做静态资源来访问
+app.use(KoaStatic(path.join(__dirname, '..', 'uploadFiles')))
 
 // 错误处理
 app.use(CatchError)
@@ -34,6 +36,20 @@ app.use(
       path: unlessPath,
     }
   )
+)
+
+app.use(
+  Cors({
+    origin: function (ctx) {
+      //设置允许来自指定域名请求
+      return '*'
+    },
+    maxAge: 5, //指定本次预检请求的有效期，单位为秒。
+    credentials: true, //是否允许发送Cookie
+    allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], //设置所允许的HTTP请求方法
+    allowHeaders: ['Content-Type', 'Authorization', 'Accept'], //设置服务器支持的所有头信息字段
+    exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'], //设置获取其他自定义字段
+  })
 )
 
 // app.use(new Authority().checkToken())

@@ -113,4 +113,8 @@ module.exports = {
     errCode: 10025,
     message: '创建博客失败',
   },
+  deleteBlogFailed: {
+    errCode: 10026,
+    message: '删除博客失败',
+  },
 }
