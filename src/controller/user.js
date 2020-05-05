@@ -18,7 +18,9 @@ const {
   changeInfoFailed,
   createAddressFailed,
   updateAddressFailed,
+  forbiddenMsg,
 } = require('../model/errInfo')
+const { ForbiddenException } = require('../core/http-exception')
 
 /**
  * @description 注册
@@ -45,6 +47,9 @@ async function login({ username, password }) {
     return new ErrorModel(loginFailed)
   }
   const { id, role } = userInfo[0]
+  if (role < 9) {
+    throw new ForbiddenException(forbiddenMsg)
+  }
   const token = generateToken(id, role)
   return new SuccessModel({ token })
 }

@@ -13,6 +13,5 @@ module.exports = {
     /^\/api\/goods\/detail/,
     /^\/api\/goods\/category/,
     /^\/api\/goods\/search/,
-    /^\/api\/admin\/user\/login/,
   ],
 }
