@@ -41,13 +41,13 @@ async function register({ username, password, nickname, phone, picture }) {
 /**
  * @description 登录
  */
-async function login({ username, password }) {
+async function login({ username, password }, type) {
   const userInfo = await getUserInfo({ username, password })
   if (userInfo && userInfo.length === 0) {
     return new ErrorModel(loginFailed)
   }
   const { id, role } = userInfo[0]
-  if (role < 9) {
+  if (type === 'admin' && role < 9) {
     throw new ForbiddenException(forbiddenMsg)
   }
   const token = generateToken(id, role)

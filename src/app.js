@@ -23,9 +23,8 @@ app.use(
 )
 app.use(json())
 app.use(logger())
-app.use(KoaStatic(__dirname + '/src/public/dist')) // public下的文件当做静态资源来访问
+app.use(KoaStatic(__dirname + '/public/dist')) // public下的文件当做静态资源来访问
 app.use(KoaStatic(path.join(__dirname, '..', 'uploadFiles')))
-
 // 错误处理
 app.use(CatchError)
 

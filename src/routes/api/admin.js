@@ -24,7 +24,7 @@ router.prefix('/api/admin')
 // 登录
 router.post('/user/login', async (ctx) => {
   const { username, password } = ctx.request.body
-  ctx.body = await login({ username, password })
+  ctx.body = await login({ username, password }, (type = 'admin'))
 })
 
 // 验证身份

@@ -1,4 +1,4 @@
 node_modules
 
-# src/public
-# src/views
+src/public
+src/views

@@ -15,7 +15,7 @@ router.prefix('/api/user')
 
 router.post('/login', async (ctx) => {
   const { username, password } = ctx.request.body
-  ctx.body = await login({ username, password })
+  ctx.body = await login({ username, password }, (type = 'user'))
 })
 
 router.post('/register', genValidator(userValidate), async (ctx) => {
