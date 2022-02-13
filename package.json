@@ -10,7 +10,7 @@
     "lint": "eslint --ext .js ./src"
   },
   "dependencies": {
-    "ajv": "^6.12.2",
+    "ajv": "^6.12.3",
     "alipay-sdk": "^3.0.8",
     "basic-auth": "^2.0.1",
     "date-fns": "^2.12.0",
